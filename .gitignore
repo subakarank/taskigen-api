@@ -1,0 +1,26 @@
+venv/
+__pycache__/
+
+# FastAPI
+__pycache__/
+.env
+
+# IDE/Editor specific files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Miscellaneous
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Python virtual environment
+venv/
+bin/
+lib/
+pyvenv.cfg
+__pycache__/
