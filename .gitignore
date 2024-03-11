@@ -25,3 +25,6 @@ lib/
 pyvenv.cfg
 __pycache__/
 include/
+t
+.hypothesis
+.pytest_cache
