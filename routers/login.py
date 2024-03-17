@@ -8,8 +8,9 @@ from models.database import get_db
 
 from passlib.context import CryptContext
 from jose import JWTError, jwt
-from dependencies.auth_token import Token, SECRET_KEY, ALGORITHM,ACCESS_TOKEN_EXPIRE_MINUTES
+from dependencies.auth_token import AuthResponseSchema, TokenSchema, SECRET_KEY, ALGORITHM,ACCESS_TOKEN_EXPIRE_MINUTES
 from crud.user_crud import get_user_by_email
+from schemas.user_schema import UserSchema
 
 router = APIRouter()
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -40,11 +41,10 @@ def authenticate_user(db: Session, username: str, password: str):
         return None  # Return None if authentication fails
     return user
 
-@router.post("/login")
+@router.post("/login", response_model= AuthResponseSchema)
 async def login_for_access_token(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends(),], db: Session = Depends(get_db)
-) -> Token:
-    print(form_data.username)
+) -> AuthResponseSchema:
     user = authenticate_user(db, form_data.username, form_data.password)
     if not user:
         raise HTTPException(
@@ -56,6 +56,8 @@ async def login_for_access_token(
     access_token = create_access_token(
             data={"sub": user.email}, expires_delta=access_token_expires
     )
-    return Token(access_token=access_token,
+    user_schema = UserSchema(email=user.email, name=user.name, status=user.status)
+    token_schema = TokenSchema(token=access_token,
                     token_type="bearer",
-                    expires_in=ACCESS_TOKEN_EXPIRE_MINUTES * 60,)
+                    expires_in=ACCESS_TOKEN_EXPIRE_MINUTES * 60)
+    return AuthResponseSchema(token=token_schema, user=user_schema)
