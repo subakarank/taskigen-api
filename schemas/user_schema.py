@@ -7,9 +7,8 @@ from enums.user_status import UserStatus
 class UserSchema(BaseModel):
   email: str
   name: str
-  password: str 
-  status: Annotated[UserStatus, None] = UserStatus.REGISTERED
-  
+  status: Annotated[UserStatus, None] = None
+
 
 
 
