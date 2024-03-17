@@ -7,7 +7,7 @@ class User(BaseModel):
   email: str
   name: str
   password: str 
-  status: str
+  status: Annotated[str, None] = None
   created_at: Annotated[datetime,  None] = None
   updated_at: Annotated[datetime, None] = None
   deleted_at: Annotated[datetime, None] = None 
