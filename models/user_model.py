@@ -1,8 +1,8 @@
 from sqlalchemy import Column, Integer, String, DateTime
 from datetime import datetime,UTC
-from models.base import Base
+from models.base_model import Base
 
-class User(Base):
+class UserModel(Base):
   __tablename__ = "users"
 
   id = Column(Integer, primary_key=True)
