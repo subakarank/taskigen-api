@@ -8,9 +8,8 @@ from models.database import get_db
 
 from passlib.context import CryptContext
 from jose import JWTError, jwt
-from dependencies.auth_token import AuthResponseSchema, TokenSchema, SECRET_KEY, ALGORITHM,ACCESS_TOKEN_EXPIRE_MINUTES
+from dependencies.auth_token import AuthResponseSchema, TokenUserSchema, TokenSchema, SECRET_KEY, ALGORITHM,ACCESS_TOKEN_EXPIRE_MINUTES
 from crud.user_crud import get_user_by_email
-from schemas.user_schema import UserSchema
 
 router = APIRouter()
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -56,7 +55,7 @@ async def login_for_access_token(
     access_token = create_access_token(
             data={"sub": user.email}, expires_delta=access_token_expires
     )
-    user_schema = UserSchema(email=user.email, name=user.name, status=user.status)
+    user_schema = TokenUserSchema(email=user.email, name=user.name, sub=user.email)
     token_schema = TokenSchema(token=access_token,
                     token_type="bearer",
                     expires_in=ACCESS_TOKEN_EXPIRE_MINUTES * 60)

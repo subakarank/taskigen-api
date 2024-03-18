@@ -10,9 +10,14 @@ class TokenSchema(BaseModel):
   token_type: str
   expires_in: int 
 
+class TokenUserSchema(BaseModel):
+  name: str
+  email: str
+  sub: str 
+
 class TokenData(BaseModel):
   username: str | None = None
 
 class AuthResponseSchema(BaseModel):
   token: TokenSchema
-  user: UserSchema
+  user: TokenUserSchema
