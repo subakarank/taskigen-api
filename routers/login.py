@@ -56,7 +56,7 @@ async def login_for_access_token(
             data={"sub": user.email}, expires_delta=access_token_expires
     )
     user_schema = TokenUserSchema(email=user.email, name=user.name, sub=user.email)
-    token_schema = TokenSchema(token=access_token,
-                    token_type="bearer",
-                    expires_in=ACCESS_TOKEN_EXPIRE_MINUTES * 60)
-    return AuthResponseSchema(token=token_schema, user=user_schema)
+    # token_schema = TokenSchema(token=access_token,
+    #                 token_type="bearer",
+    #                 expires_in=ACCESS_TOKEN_EXPIRE_MINUTES * 60)
+    return AuthResponseSchema(token=access_token, user=user_schema)

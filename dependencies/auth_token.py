@@ -19,5 +19,5 @@ class TokenData(BaseModel):
   username: str | None = None
 
 class AuthResponseSchema(BaseModel):
-  token: TokenSchema
+  token: str
   user: TokenUserSchema
