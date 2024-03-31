@@ -1,1 +1,1 @@
-from models import user_model, base_model 
+from models import user_model, base_model, project_model
