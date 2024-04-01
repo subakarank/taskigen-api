@@ -1,5 +1,6 @@
 from sqlalchemy import Column, String, Integer, Text, DateTime, ForeignKey
 from datetime import datetime, UTC
+from sqlalchemy.orm import relationship
 
 from models.base_model import Base
 from models.user_model import UserModel
@@ -15,3 +16,5 @@ class ProjectModel(Base):
     created_at = Column(DateTime, default=datetime.now(UTC))
     updated_at = Column(DateTime, default=None, nullable=True, onupdate=datetime.now(UTC) )
     deleted_at = Column(DateTime, nullable=True, default=None)
+
+    user = relationship("UserModel", foreign_keys=[user_id])
