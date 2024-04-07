@@ -13,6 +13,7 @@ class ProjectModel(Base):
     user_id = Column(Integer, ForeignKey(UserModel.id, ondelete='CASCADE'))
     name =  Column(String(150), nullable=False)
     description = Column(Text, nullable=False)
+    uploads = Column(String(1000), nullable=True)
     created_at = Column(DateTime, default=datetime.now(UTC))
     updated_at = Column(DateTime, default=None, nullable=True, onupdate=datetime.now(UTC) )
     deleted_at = Column(DateTime, nullable=True, default=None)
