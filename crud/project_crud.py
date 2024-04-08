@@ -15,7 +15,7 @@ def create_project(db: Session, project: CreateProjectSchema, user: UserModel) -
     db.add(db_project)
     db.commit()
     db.refresh(db_project)
-    return db_project
+    return view_project(db, db_project.id)
 
 # def view_project(db: Session, id: int) -> ViewProjectSchema:
 #     project = db.query(ProjectModel).get(id)
@@ -45,6 +45,7 @@ def view_project(db: Session, id: int) -> ViewProjectSchema | None :
         return None  # Handle the case where the project does not exist
     # Create a dictionary representing the project data
     project_data = {
+        "id": project.id,
         'name': project.name,
         'description': project.description,
         'user': {

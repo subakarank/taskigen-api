@@ -8,6 +8,7 @@ class CreateProjectSchema(BaseModel):
     description: str = Field(title="Project Description")
 
 class ViewProjectSchema(BaseModel):
+    id: int = Field(title="ID of the project")
     name: str = Field(title='Project name')
     description: str = Field(title="Project Description")
     user: UserSchema

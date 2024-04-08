@@ -11,12 +11,12 @@ from crud.project_crud import create_project, view_project
 
 router = APIRouter()
 
-@router.post('/project/create')
+@router.post('/project/create', response_model=ViewProjectSchema)
 async def create(project: CreateProjectSchema,
                           user: user_model.UserModel = Depends(auth.get_authenticated_user), db: Session =  Depends(get_db)):
     created_project = create_project(db = db, project=project, user=user)
     if(created_project is not None):
-        return JSONResponse(status_code=200, content = {'message': 'Successfully created'})
+        return created_project
     else: 
         return JSONResponse(status_code=201, content = {'message': 'project is not created'})
     
