@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 from datetime import datetime
-from schemas.user_schema import UserSchema
+from schemas.user_schema import UserSchema, ProjectUserSchema
 from typing import Optional
 
 class CreateProjectSchema(BaseModel):
@@ -14,5 +14,12 @@ class ViewProjectSchema(BaseModel):
     user: UserSchema
     created_at: datetime = Field(title="created date and time ")
     updated_at: Optional[datetime] = Field(title="updated date and time")
+
+class ListProjectSchema(BaseModel):
+    id: int
+    name: str
+    description: str
+    createdAt: datetime
+    user: ProjectUserSchema
 
 

@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from datetime import datetime, UTC
 from models.project_model import ProjectModel
 from models.user_model import UserModel
-from schemas.project_schema import CreateProjectSchema, ViewProjectSchema
+from schemas.project_schema import CreateProjectSchema, ViewProjectSchema, ListProjectSchema
 from models.database import get_db
 from sqlalchemy import Select
 
@@ -58,4 +58,8 @@ def view_project(db: Session, id: int) -> ViewProjectSchema | None :
     }
     # Validate the project data against the ViewProjectSchema
     return ViewProjectSchema(**project_data)
+
+def list_project(db: Session) -> ListProjectSchema:
+    stmt = Select(ProjectModel.id, ProjectModel.name, ProjectModel.description,
+        ProjectModel.created_at, ProjectModel.updated_at, UserModel.name).join(UserModel)
 

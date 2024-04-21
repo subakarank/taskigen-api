@@ -9,6 +9,9 @@ class UserSchema(BaseModel):
   name: str
   status: Annotated[UserStatus, None] = None
 
+class ProjectUserSchema(BaseModel):
+  name: str
+
 
 
 

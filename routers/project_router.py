@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from dependencies import auth
 from models import user_model, project_model
 from models.database import get_db
-from schemas.project_schema import CreateProjectSchema, ViewProjectSchema
+from schemas.project_schema import CreateProjectSchema, ViewProjectSchema, ListProjectSchema
 from crud.project_crud import create_project, view_project
 
 router = APIRouter()
@@ -27,3 +27,9 @@ async def view(project_id: Annotated[int, Path(title="project id")],
     if project is None:
         raise HTTPException(status_code=404, detail="Project not found")
     return project
+
+@router.get('/projects')
+async def listProjects(user: user_model.UserModel = Depends(auth.get_authenticated_user), db: Session = Depends(get_db)) -> ListProjectSchema:
+    
+    pass
+
