@@ -12,14 +12,15 @@ class ViewProjectSchema(BaseModel):
     name: str = Field(title='Project name')
     description: str = Field(title="Project Description")
     user: UserSchema
-    created_at: datetime = Field(title="created date and time ")
-    updated_at: Optional[datetime] = Field(title="updated date and time")
+    created_at: datetime = Field(title="created date and time ", serialization_alias='createdAt')
+    updated_at: Optional[datetime] = Field(title="updated date and time", serialization_alias='updatedAt')
 
 class ListProjectSchema(BaseModel):
     id: int
     name: str
     description: str
-    createdAt: datetime
+    created_at: datetime = Field(title="created date and time ", serialization_alias='createdAt')
+    updated_at: Optional[datetime] = Field(title="updated date and time", serialization_alias='updatedAt')
     user: ProjectUserSchema
 
 

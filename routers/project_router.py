@@ -1,13 +1,13 @@
 from fastapi import APIRouter, Depends, HTTPException, Path
 from fastapi.responses import JSONResponse
-from typing import Annotated
+from typing import Annotated, List
 from sqlalchemy.orm import Session
 
 from dependencies import auth
 from models import user_model, project_model
 from models.database import get_db
 from schemas.project_schema import CreateProjectSchema, ViewProjectSchema, ListProjectSchema
-from crud.project_crud import create_project, view_project
+from crud.project_crud import create_project, view_project, list_project
 
 router = APIRouter()
 
@@ -29,7 +29,7 @@ async def view(project_id: Annotated[int, Path(title="project id")],
     return project
 
 @router.get('/projects')
-async def listProjects(user: user_model.UserModel = Depends(auth.get_authenticated_user), db: Session = Depends(get_db)) -> ListProjectSchema:
-    
-    pass
+async def listProjects(user: user_model.UserModel = Depends(auth.get_authenticated_user), db: Session = Depends(get_db)):
+    projects = list_project(db=db)
+    return projects
 
